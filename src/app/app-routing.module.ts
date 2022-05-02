@@ -1,27 +1,46 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './auth/auth.guard';
+import { LogoutComponent } from './auth/logout.component';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
+import { UsersComponent } from './users/users.component';
 
-
+// Todo : Lazy loading
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: AuthComponent,
   },
   {
     path: 'list',
-    component: ListComponent
+    canActivate: [AuthGuard],
+    component: ListComponent,
   },
   {
     path: 'manage',
-    component: ManageComponent
-  }
+    canActivate: [AuthGuard],
+    component: ManageComponent,
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    component: UsersComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
+  },
+
+  {
+    path: '**',
+    component: AuthComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

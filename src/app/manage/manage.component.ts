@@ -17,7 +17,9 @@ import {
   DeleteTodo,
   StartEditTodo,
   IToDo,
+  FetchTodo,
 } from '../store/todo.actions';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-manage',
@@ -26,7 +28,7 @@ import {
 })
 export class ManageComponent implements OnInit, OnDestroy {
   isEdit = false;
-  // editIndex: number = null;
+  todoId: number = null;
   todoList$: Observable<ITodoListModel>;
   listSubscription: Subscription;
 
@@ -37,18 +39,25 @@ export class ManageComponent implements OnInit, OnDestroy {
 
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
 
+  get username() {
+    return this.authService.userInfo.username;
+  }
+
   constructor(
     private todoService: TodoService,
     private snackBar: MatSnackBar,
+    private authService: AuthService,
     private store: Store<{ TodoList: ITodoListModel }>
   ) {}
 
   ngOnInit(): void {
     this.todoList$ = this.store.select('TodoList');
+    this.store.dispatch(new FetchTodo());
 
     this.listSubscription = this.store.select('TodoList').subscribe((data) => {
       if (data.editState) {
-        const { title, comment } = data.data[data.editIndex];
+        const { title, comment, id } = data.data[data.editIndex];
+        this.todoId = id;
         this.onEdit({ title, comment });
       }
     });
@@ -58,11 +67,8 @@ export class ManageComponent implements OnInit, OnDestroy {
     if (this.todoForm.valid) {
       const { title, comment } = this.todoForm.value;
       if (this.isEdit) {
-        // this.todoService.todoList[this.editIndex].title = title;
-        // this.todoService.todoList[this.editIndex].comment = comment;
-        this.store.dispatch(new EditTodo({ title, comment }));
+        this.store.dispatch(new EditTodo(this.todoId, { title, comment }));
       } else {
-        // this.todoService.todoList.push(new TodoList(title, comment));
         this.store.dispatch(new AddTodo({ title, comment }));
       }
       this.snackBar.open(
@@ -87,19 +93,11 @@ export class ManageComponent implements OnInit, OnDestroy {
   }
 
   doEdit(index: number): void {
-    // this.isEdit = true;
-    // this.editIndex = index;
-    // const { title, comment } = this.todoService.todoList[index];
-    // this.todoForm.setValue({
-    //   title,
-    //   comment
-    // });
     this.store.dispatch(new StartEditTodo(index));
   }
 
-  doDelete(index: number): void {
-    // this.todoService.todoList.splice(index, 1);
-    this.store.dispatch(new DeleteTodo(index));
+  doDelete(todoId: number, index: number): void {
+    this.store.dispatch(new DeleteTodo(todoId, index));
     this.snackBar.open(`Deleted successfully`, '', { duration: 2000 });
   }
 

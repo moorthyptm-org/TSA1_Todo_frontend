@@ -1,27 +1,35 @@
 <mat-grid-list cols="2" rowHeight="1:1">
   <mat-grid-tile>
     <div class="form-section">
-      <form class="example-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
-        <h3 class="title center">{{ isEdit ? "Edit" : "Add" }} ToDo</h3>
+      <form class="example-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <h3 class="title center">{{ isEdit ? "Edit" : "Add" }} User</h3>
         <mat-divider></mat-divider>
         <mat-form-field class="example-full-width">
           <input
             type="text"
-            formControlName="title"
+            formControlName="username"
             matInput
-            placeholder="Title"
+            placeholder="Username"
           />
         </mat-form-field>
-
         <mat-form-field class="example-full-width">
-          <textarea
-            formControlName="comment"
+          <input
+            type="password"
+            formControlName="password"
             matInput
-            placeholder="Leave a comment"
-          ></textarea>
+            placeholder="Password"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{ role }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <button
-          [disabled]="!todoForm.valid"
+          [disabled]="userForm.invalid"
           type="submit"
           mat-raised-button
           color="primary"
@@ -34,19 +42,17 @@
   </mat-grid-tile>
   <mat-grid-tile>
     <div class="manage-list">
-      <h3 class="title center">{{ username | titlecase }} || ToDO List</h3>
+      <h3 class="title center">User List</h3>
       <mat-divider></mat-divider>
-      <mat-list *ngIf="(todoList$ | async)?.data?.length > 0; else empty">
-        <mat-list-item
-          *ngFor="let todo of (todoList$ | async)?.data; let i = index"
-        >
+      <mat-list *ngIf="userList?.length > 0; else empty">
+        <mat-list-item *ngFor="let user of userList; let i = index">
           <mat-icon mat-list-icon>class</mat-icon>
           <h4 mat-line>
-            {{ todo.title }}
+            {{ user.username }}
             <span class="push-right action">
               <button
                 type="button"
-                (click)="doEdit(i)"
+                (click)="doEdit(user)"
                 mat-icon-button
                 color="primary"
                 aria-label="Example icon-button with a heart icon"
@@ -56,7 +62,7 @@
               <button
                 [disabled]="isEdit"
                 type="button"
-                (click)="doDelete(todo.id, i)"
+                (click)="doDelete(user.id, i)"
                 mat-icon-button
                 color="warn"
                 aria-label="Example icon-button with a heart icon"
@@ -65,12 +71,12 @@
               </button>
             </span>
           </h4>
-          <p mat-line>{{ todo.addedOn | date }}</p>
+          <p mat-line>{{ user.role }}</p>
         </mat-list-item>
       </mat-list>
       <ng-template #empty>
         <h3 class="title center" style="position: relative; top: 35%">
-          List is empty
+          User List is empty
         </h3>
       </ng-template>
     </div>
