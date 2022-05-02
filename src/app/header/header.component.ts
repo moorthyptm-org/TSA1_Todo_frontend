@@ -18,6 +18,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   get isUserAuthendicated() {
     return this.authService.isUserAuthendicated;
   }
+
+  get isAdmin() {
+    return this.authService.userInfo.role === 'ADMIN';
+  }
   constructor(
     private todoService: TodoService,
     private authService: AuthService,
@@ -30,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public getTodoLength = (): number =>
-    this.todoList.data.reduce((ac: any, list) => ac + (list.isDone ? 0 : 1), 0);
+    this.todoList.data.reduce((ac: any, list) => ac + (list.status ? 0 : 1), 0);
 
   ngOnDestroy(): void {
     this.listSubscription.unsubscribe();

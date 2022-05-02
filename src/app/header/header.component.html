@@ -16,6 +16,7 @@
           >Add / Edit
         </a>
         <a
+          *ngIf="isAdmin"
           [routerLink]="['/users']"
           routerLinkActive="router-link-active"
           mat-button

@@ -20,6 +20,9 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { LogoutComponent } from './auth/logout.component';
 import { UsersComponent } from './users/users.component';
 import { UsersService } from './users/users.service';
+import { TodoService } from './todo.service';
+import { TodoEffects } from './store/todo.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -40,9 +43,11 @@ import { UsersService } from './users/users.service';
     ReactiveFormsModule,
     MatModule,
     StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([TodoEffects]),
   ],
   providers: [
     AuthService,
+    TodoService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     UsersService,

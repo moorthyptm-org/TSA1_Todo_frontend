@@ -1,49 +1,78 @@
 <mat-grid-list cols="2" rowHeight="1:1">
-    <mat-grid-tile>
-        <div class="form-section">
-            <form class="example-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
-                <h3 class="title center">{{ isEdit ? 'Edit' : 'Add' }} ToDo</h3>
-                <mat-divider></mat-divider>
-                <mat-form-field class="example-full-width">
-                    <input type="text" formControlName="title" matInput placeholder="Title">
-                </mat-form-field>
+  <mat-grid-tile>
+    <div class="form-section">
+      <form class="example-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+        <h3 class="title center">{{ isEdit ? "Edit" : "Add" }} ToDo</h3>
+        <mat-divider></mat-divider>
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            formControlName="title"
+            matInput
+            placeholder="Title"
+          />
+        </mat-form-field>
 
-                <mat-form-field class="example-full-width">
-                    <textarea formControlName="comment" matInput placeholder="Leave a comment"></textarea>
-                </mat-form-field>
-                <button [disabled]='!todoForm.valid' type="submit" mat-raised-button color="primary"
-                    class="push-right">{{ isEdit ? 'Edit' : 'Add' }}</button>
-
-            </form>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div class="manage-list">
-            <h3 class="title center">ToDO List</h3>
-            <mat-divider></mat-divider>
-            <mat-list *ngIf="(todoList$ | async )?.data?.length > 0 ;else empty">
-
-                <mat-list-item *ngFor="let todo of (todoList$ | async )?.data;let i = index">
-                    <mat-icon mat-list-icon>class</mat-icon>
-                    <h4 mat-line>{{todo.title}}
-                        <span class="push-right action">
-                            <button type="button" (click)="doEdit(i)" mat-icon-button color="primary"
-                                aria-label="Example icon-button with a heart icon">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            <button [disabled]='isEdit' type="button" (click)="doDelete(i)" mat-icon-button color="warn"
-                                aria-label="Example icon-button with a heart icon">
-                                <mat-icon>delete_forever</mat-icon>
-                            </button>
-                        </span>
-                    </h4>
-                    <p mat-line> {{todo.addedOn | date}} </p>
-                </mat-list-item>
-
-            </mat-list>
-            <ng-template #empty>
-                <h3 class="title center " style="position: relative; top: 35%;">List is empty</h3>
-            </ng-template>
-        </div>
-    </mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <textarea
+            formControlName="comment"
+            matInput
+            placeholder="Leave a comment"
+          ></textarea>
+        </mat-form-field>
+        <button
+          [disabled]="!todoForm.valid"
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="push-right"
+        >
+          {{ isEdit ? "Edit" : "Add" }}
+        </button>
+      </form>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="manage-list">
+      <h3 class="title center">{{ username | titlecase }} || ToDO List</h3>
+      <mat-divider></mat-divider>
+      <mat-list *ngIf="(todoList$ | async)?.data?.length > 0; else empty">
+        <mat-list-item
+          *ngFor="let todo of (todoList$ | async)?.data; let i = index"
+        >
+          <mat-icon mat-list-icon>class</mat-icon>
+          <h4 mat-line>
+            {{ todo.title }}
+            <span class="push-right action">
+              <button
+                type="button"
+                (click)="doEdit(i)"
+                mat-icon-button
+                color="primary"
+                aria-label="Example icon-button with a heart icon"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                [disabled]="isEdit"
+                type="button"
+                (click)="doDelete(todo.id, i)"
+                mat-icon-button
+                color="warn"
+                aria-label="Example icon-button with a heart icon"
+              >
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </span>
+          </h4>
+          <p mat-line>{{ todo.addedOn | date }}</p>
+        </mat-list-item>
+      </mat-list>
+      <ng-template #empty>
+        <h3 class="title center" style="position: relative; top: 35%">
+          List is empty
+        </h3>
+      </ng-template>
+    </div>
+  </mat-grid-tile>
 </mat-grid-list>
