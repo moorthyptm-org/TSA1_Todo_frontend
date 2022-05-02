@@ -1,0 +1,17 @@
+.login-form {
+  height: 15rem;
+  width: 20rem;
+  text-align: left;
+  mat-form-field {
+    width: 20rem;
+  }
+  h3 {
+    font-weight: 500;
+  }
+}
+
+.action {
+  button {
+    float: right;
+  }
+}

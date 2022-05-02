@@ -4,35 +4,45 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 import { MatModule } from './mat.module';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './app.state';
-
+import { AuthComponent } from './auth/auth.component';
+import { AuthService } from './auth/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './auth/auth.guard';
+import { TokenInterceptor } from './auth/token.interceptor';
+import { LogoutComponent } from './auth/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
     ListComponent,
-    ManageComponent
+    ManageComponent,
+    AuthComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
     MatModule,
-    StoreModule.forRoot(appReducer)
+    StoreModule.forRoot(appReducer),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

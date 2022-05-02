@@ -11,37 +11,39 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-    declarations: [],
-    imports: [
-        MatSliderModule,
-        MatToolbarModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatBadgeModule,
-        MatGridListModule,
-        MatInputModule,
-        MatListModule,
-        MatIconModule,
-        MatSnackBarModule,
-        MatExpansionModule
-    ],
-    exports: [
-        MatSliderModule,
-        MatToolbarModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatBadgeModule,
-        MatGridListModule,
-        MatInputModule,
-        MatListModule,
-        MatIconModule,
-        MatSnackBarModule,
-        MatExpansionModule
-    ],
-    providers: [],
-    bootstrap: []
+  declarations: [],
+  imports: [
+    MatSliderModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatBadgeModule,
+    MatGridListModule,
+    MatInputModule,
+    MatListModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatCardModule,
+  ],
+  exports: [
+    MatSliderModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatBadgeModule,
+    MatGridListModule,
+    MatInputModule,
+    MatListModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatCardModule,
+  ],
+  providers: [],
+  bootstrap: [],
 })
-export class MatModule { }
+export class MatModule {}

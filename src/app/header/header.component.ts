@@ -4,6 +4,7 @@ import { ITodoListModel } from '../store/todo.reducer';
 import { Store } from '@ngrx/store';
 import { TodoList } from '../todo.model';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   todoList: ITodoListModel;
   listSubscription: Subscription;
 
+  get isUserAuthendicated() {
+    return this.authService.isUserAuthendicated;
+  }
   constructor(
     private todoService: TodoService,
+    private authService: AuthService,
     private store: Store<{ TodoList: ITodoListModel }>
   ) {}
   ngOnInit(): void {
@@ -25,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public getTodoLength = (): number =>
-    this.todoList.data.reduce((ac: any, list) => ac + (list.isDone ? 0 : 1), 0)
+    this.todoList.data.reduce((ac: any, list) => ac + (list.isDone ? 0 : 1), 0);
 
   ngOnDestroy(): void {
     this.listSubscription.unsubscribe();
