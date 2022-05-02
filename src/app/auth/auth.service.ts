@@ -14,7 +14,7 @@ export class AuthService {
     return this._userAuthendicated;
   }
 
-  private _token: string = null;
+  private _token: string | null = null;
 
   get token() {
     return this._token;
@@ -55,6 +55,7 @@ export class AuthService {
 
   logout() {
     this._token = null;
+    this._userAuthendicated = false;
     this.userInfo = {
       role: null,
       username: null,

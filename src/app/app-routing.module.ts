@@ -5,6 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { LogoutComponent } from './auth/logout.component';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
+import { UsersComponent } from './users/users.component';
 
 // Todo : Lazy loading
 const routes: Routes = [
@@ -21,6 +22,11 @@ const routes: Routes = [
     path: 'manage',
     canActivate: [AuthGuard],
     component: ManageComponent,
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    component: UsersComponent,
   },
   {
     path: 'logout',

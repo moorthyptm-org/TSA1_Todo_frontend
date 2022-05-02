@@ -18,6 +18,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { LogoutComponent } from './auth/logout.component';
+import { UsersComponent } from './users/users.component';
+import { UsersService } from './users/users.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { LogoutComponent } from './auth/logout.component';
     ManageComponent,
     AuthComponent,
     LogoutComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { LogoutComponent } from './auth/logout.component';
     AuthService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    UsersService,
   ],
   bootstrap: [AppComponent],
 })

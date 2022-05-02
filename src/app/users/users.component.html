@@ -1,0 +1,84 @@
+<mat-grid-list cols="2" rowHeight="1:1">
+  <mat-grid-tile>
+    <div class="form-section">
+      <form class="example-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <h3 class="title center">{{ isEdit ? "Edit" : "Add" }} User</h3>
+        <mat-divider></mat-divider>
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            formControlName="username"
+            matInput
+            placeholder="Username"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            type="password"
+            formControlName="password"
+            matInput
+            placeholder="Password"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{ role }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          [disabled]="userForm.invalid"
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="push-right"
+        >
+          {{ isEdit ? "Edit" : "Add" }}
+        </button>
+      </form>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="manage-list">
+      <h3 class="title center">Users List</h3>
+      <mat-divider></mat-divider>
+      <mat-list *ngIf="userList?.length > 0; else empty">
+        <mat-list-item *ngFor="let user of userList; let i = index">
+          <mat-icon mat-list-icon>class</mat-icon>
+          <h4 mat-line>
+            {{ user.username }}
+            <span class="push-right action">
+              <button
+                type="button"
+                (click)="doEdit(user)"
+                mat-icon-button
+                color="primary"
+                aria-label="Example icon-button with a heart icon"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                [disabled]="isEdit"
+                type="button"
+                (click)="doDelete(user.id, i)"
+                mat-icon-button
+                color="warn"
+                aria-label="Example icon-button with a heart icon"
+              >
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </span>
+          </h4>
+          <p mat-line>{{ user.role }}</p>
+        </mat-list-item>
+      </mat-list>
+      <ng-template #empty>
+        <h3 class="title center" style="position: relative; top: 35%">
+          User List is empty
+        </h3>
+      </ng-template>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

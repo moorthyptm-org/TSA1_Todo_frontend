@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatExpansionModule,
     MatCardModule,
+    MatSelectModule,
   ],
   exports: [
     MatSliderModule,
@@ -42,6 +44,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatExpansionModule,
     MatCardModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [],
