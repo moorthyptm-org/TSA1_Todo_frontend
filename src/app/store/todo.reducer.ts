@@ -43,9 +43,16 @@ export function TodoReducer(
         editState: false,
         editIndex: null,
       };
+    case TodoActions.LOAD:
+      return {
+        ...state,
+        data: action.payload,
+        editState: false,
+        editIndex: null,
+      };
     case TodoActions.DONE:
       const markDone = deepClone(state.data);
-      markDone[action.payload].isDone = true;
+      markDone[action.payload].status = 1;
       return { ...state, data: markDone };
     case TodoActions.DELETE:
       const deleted = deepClone(state.data);

@@ -1,12 +1,45 @@
 <mat-toolbar color="primary">
-    <span>ToDo App</span>
-    <div class="navigation">
-        <nav>
-            <a [routerLink]="['/']" routerLinkActive="router-link-active" mat-button>Home</a>
-            <a [routerLink]="['/manage']" routerLinkActive="router-link-active" mat-button matBadgeColor="accent">Add /
-                Edit </a>
-            <a [routerLink]="['/list']" routerLinkActive="router-link-active" mat-button [matBadge]="getTodoLength()"
-                matBadgeColor="accent" matBadgeOverlap="true">List</a>
-        </nav>
-    </div>
+  <span>ToDo App</span>
+  <div class="navigation">
+    <nav>
+      <ng-container *ngIf="!isUserAuthendicated; else authendicated">
+        <a [routerLink]="['/']" routerLinkActive="router-link-active" mat-button
+          >login</a
+        >
+      </ng-container>
+      <ng-template #authendicated>
+        <a
+          [routerLink]="['/manage']"
+          routerLinkActive="router-link-active"
+          mat-button
+          matBadgeColor="accent"
+          >Add / Edit
+        </a>
+        <a
+          *ngIf="isAdmin"
+          [routerLink]="['/users']"
+          routerLinkActive="router-link-active"
+          mat-button
+          matBadgeColor="accent"
+          >Users
+        </a>
+        <a
+          [routerLink]="['/list']"
+          routerLinkActive="router-link-active"
+          mat-button
+          [matBadge]="getTodoLength()"
+          matBadgeColor="accent"
+          matBadgeOverlap="true"
+          >List</a
+        >
+        <a
+          [routerLink]="['/logout']"
+          routerLinkActive="router-link-active"
+          mat-button
+          matBadgeColor="accent"
+          >Logout
+        </a>
+      </ng-template>
+    </nav>
+  </div>
 </mat-toolbar>

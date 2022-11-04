@@ -1,0 +1,33 @@
+<mat-grid-list cols="1" rowHeight="2:1">
+  <mat-grid-tile>
+    <section class="center">
+      <mat-card class="login-form">
+        <h3 class="center">Login to continue!!!</h3>
+        <form [formGroup]="loginForm" (submit)="onSubmit()">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input
+              type="text"
+              matInput
+              name="username"
+              formControlName="username"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              matInput
+              name="password"
+              formControlName="password"
+            />
+          </mat-form-field>
+
+          <div class="action">
+            <button mat-raised-button color="primary">Login</button>
+          </div>
+        </form>
+      </mat-card>
+    </section>
+  </mat-grid-tile>
+</mat-grid-list>
